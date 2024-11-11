@@ -1,0 +1,36 @@
+[
+  {
+    "quiz_title": "General Knowledge Quiz",
+    "description": "A fun and challenging general knowledge quiz to test your brain.",
+    "number_questions": 3
+  },
+  {
+    "quiz_type": "qcm",
+    "question_text": "Rome is the answer",
+    "question_points": 100,
+    "a": "Berlin",
+    "b": "Madrid",
+    "c": "Paris",
+    "d": "Rome",
+    "correct": "Rome",
+    "explanation": "explain"
+  },
+  {
+    "quiz_type": "yes-no",
+    "question_text": "This is false",
+    "question_points": 100,
+    "a": "true",
+    "b": "false",
+    "correct": "false",
+    "explanation": "test"
+  },
+
+  {
+    "quiz_type": "input",
+    "question_text": "What is the largest planet in our solar system?",
+    "question_points": 100,
+
+    "correct": "test",
+    "explanation": "explain"
+  }
+]
