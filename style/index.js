@@ -1,19 +1,27 @@
 let data = '';
-let i = 1;
+let i = 0;
 let progress_full = 100;
 let progress = 0;
 let score = 0;
 var timer;
 var correct_answers = 0;
+let qsindex = 1;
+let indextoplay = '';
+
+if(localStorage.getItem("id") !== null){
+    indextoplay = localStorage.getItem("id");
+}
+
 async function good() {
     let qcm = document.querySelector(".qcm");
     let true_false = document.querySelector(".true-false");
     let text_response = document.querySelector(".text-response");
     let quiz_question = document.querySelector(".quiz-question");
     let question = quiz_question.querySelector("h3");
-    const response = await fetch('./data.json');
+    const response = await fetch(`http://localhost:3000/quizes/${indextoplay}`);
     data = await response.json();
-    type = data[i].quiz_type;
+    type = data.questions[i].quiz_type;//
+
     let first_option = document.querySelector("#first");
     let second_option = document.querySelector("#second");
     let third_option = document.querySelector("#third");
@@ -47,27 +55,35 @@ async function good() {
 
     let correctAnsewrs = document.getElementById("questions-answered");
     let rate = document.getElementById("success-rate");
+    let result_score = document.getElementById("text-score");
 
-    NumberOfquestions_html.innerHTML = `${i}/${data[0].number_questions}`;
+    NumberOfquestions_html.innerHTML = `${qsindex}/${data.number_questions}`;//
 
 
 
-
-    progress = (i / data[0].number_questions) * progress_full;
+    progress = (qsindex / data.number_questions) * progress_full;//
 
     function result() {
-        if (i === data.length - 1) {
-            localStorage.setItem("score", score);
+        if (qsindex === data.questions.length) {//
             setTimeout(() => {
+                if (localStorage.getItem("score") !== null) {
+                    if (score > localStorage.getItem("score")) {
+                        localStorage.setItem("score", score);
+                        result_score.innerHTML = `New Record: ${localStorage.getItem("score")}`;
+                    }
+                    else {
+                        result_score.innerHTML = `Record:${score}`;
+                    }
+                }
                 main.style.opacity = "0";
                 explanation.style.display = "none";
                 quiz_question.style.display = "none";
                 result_interface.style.display = "flex";
                 result_interface.style.opacity = "1";
                 correctAnsewrs.innerHTML = `Questions Answered: ${correct_answers} Correct`;
-                rate.innerHTML = `Success rate : ${((correct_answers/data[0].number_questions) * 100).toFixed(2)}%`;
-                
-            }, 5000);
+                rate.innerHTML = `Success rate : ${((correct_answers / data.number_questions) * 100).toFixed(2)}%`;//
+
+            }, 2000);
         }
     }
 
@@ -86,16 +102,17 @@ async function good() {
                     result()
                     clearInterval(timer);
                     i++;
+                    qsindex++;
                     good()
-                }, 5000);
+                }, 2000);
             }
         }, 1000);
     }
     function explain() {
         setTimeout(() => {
             explanation.style.display = "flex";
-            explanation.innerHTML = data[i].explanation;
-        }, 1000);
+            explanation.innerHTML = data.questions[i].explanation;//
+        }, 100);
     }
 
     if (type === "qcm") {
@@ -103,7 +120,7 @@ async function good() {
         timer()
         qcm.style.display = "grid";
         quiz_question.querySelector(".qcm-icon").style.display = "block";
-        amount.innerHTML = `${data[i].question_points}P`;
+        amount.innerHTML = `${data.questions[i].question_points}P`;//
 
         true_false.style.display = "none";
         quiz_question.querySelector(".false-true-icon").style.display = "none";
@@ -111,11 +128,11 @@ async function good() {
         text_response.style.display = "none"
         quiz_question.querySelector(".answer-icon").style.display = "none";
 
-        question.innerHTML = data[i].question_text;
-        first_option.innerHTML = data[i].a;
-        second_option.innerHTML = data[i].b;
-        third_option.innerHTML = data[i].c;
-        fourth_option.innerHTML = data[i].d;
+        question.innerHTML = data.questions[i].question_text;//
+        first_option.innerHTML = data.questions[i].a;//
+        second_option.innerHTML = data.questions[i].b;//
+        third_option.innerHTML = data.questions[i].c;//
+        fourth_option.innerHTML = data.questions[i].d;//
         qcm_choice.forEach(e => {
             e.style.background = "#F55555";
         });
@@ -124,18 +141,18 @@ async function good() {
             let qcm_text = e.innerText;
             e.onclick = second;
             function second() {
-                if (qcm_text.includes(data[i].correct)) {
+                if (qcm_text.includes(data.questions[i].correct)) {//
                     qcm_choice.forEach(l => {
                         let qcm_text = l.innerText;
-                        if (qcm_text.includes(data[i].correct)) {
+                        if (qcm_text.includes(data.questions[i].correct)) {//
                             l.style.background = "green";
-                            score += data[i].question_points;
+                            score += Number(data.questions[i].question_points);//
                             score_html.innerHTML = score;
+                            // score_html.innerHTML = Number(score_html.innerHTML) + Number(data[0].questions[i].question_points);
                             correct_answers++;
                         }
                         else {
                             l.style.background = "red";
-
                         }
                     })
                 }
@@ -144,7 +161,7 @@ async function good() {
                     explain();
                     qcm_choice.forEach(l => {
                         let qcm_text = l.innerText;
-                        if (qcm_text.includes(data[i].correct)) {
+                        if (qcm_text.includes(data.questions[i].correct)) {//
                             l.style.background = "green";
                         }
                         else {
@@ -152,56 +169,26 @@ async function good() {
                         }
                     })
                 }
-                result()
                 bar.style.width = `${progress}%`;
                 bar.style.transition = "all .25s ease"
+                result()
                 setTimeout(() => {
                     clearInterval(timer);
                     i++;
+                    qsindex++;
                     true_false.style.display = "none";
                     quiz_question.querySelector(".false-true-icon").style.display = "none";
                     good()
-                }, 5000);
+                }, 2000);
             }
         })
-        // qcm_options.forEach(e => {
-        //     let qcm_answer = e.innerText;
-        //     e.addEventListener("click", tst)
-        //     function tst() {
-        //         if (qcm_answer !== data[i].correct) {
-        //             explain();
-        //         }
-        //         qcm_options.forEach(m => {
-        //             let qcm_answer = m.innerText;
-        //             if (qcm_answer === data[i].correct) {
-        //                 m.style.backgroundColor = "green";
-        //                 score += data[i].question_points;
-        //                 score_html.innerHTML = score;
-        //                 correct_answers++;
-        //             } else {
-        //                 m.style.backgroundColor = "red";
-        //             }
-        //             m.removeEventListener("click", tst);
-        //         })
-        //         result()
-        //         bar.style.width = `${progress}%`;
-        //         bar.style.transition = "all .25s ease";
-        //         setTimeout(() => {
-        //             clearInterval(timer);
-        //             i++;
-        //             qcm.style.display = "none";
-        //             quiz_question.querySelector(".qcm-icon").style.display = "none";
-        //             good()
-        //         }, 5000);
-        //     }
-        // })
     }
     if (type === "yes-no") {
         explanation.style.display = "none";
         timer()
         true_false.style.display = "grid";
         quiz_question.querySelector(".false-true-icon").style.display = "block";
-        amount.innerHTML = data[i].question_points;
+        amount.innerHTML = `${data.questions[i].question_points}P`;
 
         qcm.style.display = "none";
         quiz_question.querySelector(".qcm-icon").style.display = "none";
@@ -209,9 +196,9 @@ async function good() {
         text_response.style.display = "none"
         quiz_question.querySelector(".answer-icon").style.display = "none";
 
-        question.innerHTML = data[i].question_text;
-        option_true.innerHTML = data[i].a;
-        option_false.innerHTML = data[i].b;
+        question.innerHTML = data.questions[i].question_text;
+        option_true.innerHTML = data.questions[i].a;
+        option_false.innerHTML = data.questions[i].b;
         choice.forEach(k => {
             k.style.background = "#F55555";
         })
@@ -220,12 +207,14 @@ async function good() {
             let html_text = e.innerText;
             e.onclick = ano;
             function ano() {
-                if (html_text.includes(data[i].correct)) {
+                if (html_text.includes(data.questions[i].correct)) {
                     choice.forEach(l => {
                         let html_text = l.innerText;
-                        if (html_text.includes(data[i].correct)) {
+                        if (html_text.includes(data.questions[i].correct)) {
                             l.style.background = "green";
-                            score += data[i].question_points;
+                            score += Number(data.questions[i].question_points);
+                            score_html.innerHTML = score;
+                            // score += data[0].questions[i].question_points;
                             score_html.innerHTML = score;
                             correct_answers++;
                         }
@@ -235,10 +224,11 @@ async function good() {
                     })
                 }
                 else {
+                    explain();
                     e.style.background = "red";
                     choice.forEach(l => {
                         let html_text = l.innerText;
-                        if (html_text.includes(data[i].correct)) {
+                        if (html_text.includes(data.questions[i].correct)) {
                             l.style.background = "green";
                         }
                         else {
@@ -252,10 +242,11 @@ async function good() {
                 setTimeout(() => {
                     clearInterval(timer);
                     i++;
+                    qsindex++;
                     true_false.style.display = "none";
                     quiz_question.querySelector(".false-true-icon").style.display = "none";
                     good()
-                }, 5000);
+                }, 2000);
             }
         })
         // options.forEach(e => {
@@ -285,7 +276,7 @@ async function good() {
         //             true_false.style.display = "none";
         //             quiz_question.querySelector(".false-true-icon").style.display = "none";
         //             good()
-        //         }, 5000);
+        //         }, 2000);
         //     }
         // })
     }
@@ -296,7 +287,7 @@ async function good() {
         response_input.style.background = "black";
         text_response.style.display = "grid";
         quiz_question.querySelector(".answer-icon").style.display = "block";
-        amount.innerHTML = data[i].question_points;
+        amount.innerHTML = `${data.questions[i].question_points}P`;
 
         true_false.style.display = "none";
         quiz_question.querySelector(".false-true-icon").style.display = "none";
@@ -305,14 +296,14 @@ async function good() {
         quiz_question.querySelector(".qcm-icon").style.display = "none";
 
 
-        question.innerHTML = data[i].question_text;
-        let data_upper = data[i].correct.toUpperCase();
+        question.innerHTML = data.questions[i].question_text;
+        let data_upper = data.questions[i].correct.toUpperCase();
         let submit = document.querySelector(".submit-answer");
         submit.onclick = hero;
         function hero() {
             if (response_input.value.toUpperCase().indexOf(data_upper) >= 0) {
                 response_input.style.backgroundColor = "green";
-                score += data[i].question_points;
+                score += Number(data.questions[i].question_points);
                 score_html.innerHTML = score;
                 correct_answers++;
             }
@@ -326,13 +317,16 @@ async function good() {
             setTimeout(() => {
                 clearInterval(timer);
                 i++;
+                qsindex++;
                 text_response.style.display = "none"
                 quiz_question.querySelector(".answer-icon").style.display = "none";
                 good()
-            }, 5000);
+            }, 2000);
         }
     }
-
-
 }
-good()
+
+if (localStorage.getItem("score") === null) {
+    localStorage.setItem("score", 0);
+}
+

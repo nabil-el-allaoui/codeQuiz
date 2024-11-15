@@ -1,0 +1,82 @@
+{
+  "quizes": [
+    {
+      "id": "783f",
+      "quiz_title": "Quiz prototype",
+      "description": "prototype",
+      "number_questions": "3",
+      "category": "test",
+      "difficulty": "easy",
+      "estimated_time": "5",
+      "status": "actif",
+      "questions": [
+        {
+          "quiz_type": "qcm",
+          "question_text": "this is rom",
+          "question_points": "20",
+          "a": "paris",
+          "b": "rome",
+          "c": "italy",
+          "d": "maroc",
+          "correct": "rome",
+          "explanation": "its just rome"
+        },
+        {
+          "quiz_type": "yes-no",
+          "question_text": "this is just true",
+          "question_points": "20",
+          "a": "true",
+          "b": "false",
+          "correct": "true",
+          "explanation": "just choose true"
+        },
+        {
+          "quiz_type": "input",
+          "question_text": "type hi",
+          "question_points": "80",
+          "correct": "hi",
+          "explanation": "hi:)"
+        }
+      ]
+    },
+    {
+      "id": "d0eb",
+      "quiz_title": "another test",
+      "description": "testing",
+      "number_questions": "3",
+      "category": "test",
+      "difficulty": "hard",
+      "estimated_time": "10",
+      "status": "actif",
+      "questions": [
+        {
+          "quiz_type": "qcm",
+          "question_text": "whats is this",
+          "question_points": "100",
+          "a": "this ",
+          "b": "is ",
+          "c": "what ",
+          "d": "none",
+          "correct": "this",
+          "explanation": "this is this"
+        },
+        {
+          "quiz_type": "yes-no",
+          "question_text": "whatever but true",
+          "question_points": "60",
+          "a": "true",
+          "b": "false",
+          "correct": "true",
+          "explanation": "just true ngl"
+        },
+        {
+          "quiz_type": "input",
+          "question_text": "type smthg",
+          "question_points": "80",
+          "correct": "smthg",
+          "explanation": "whell"
+        }
+      ]
+    }
+  ]
+}

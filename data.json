@@ -2,7 +2,9 @@
   {
     "quiz_title": "General Knowledge Quiz",
     "description": "A fun and challenging general knowledge quiz to test your brain.",
-    "number_questions": 3
+    "number_questions": 3,
+    "difficulty": "normal",
+    "estimated_time" : "5min"
   },
   {
     "quiz_type": "qcm",
