@@ -7,6 +7,8 @@ var timer;
 var correct_answers = 0;
 let qsindex = 1;
 let indextoplay = '';
+var sec;
+var totalsec = 0;
 
 if(localStorage.getItem("id") !== null){
     indextoplay = localStorage.getItem("id");
@@ -56,6 +58,7 @@ async function good() {
     let correctAnsewrs = document.getElementById("questions-answered");
     let rate = document.getElementById("success-rate");
     let result_score = document.getElementById("text-score");
+    let resutl_time = document.getElementById("Total-time");
 
     NumberOfquestions_html.innerHTML = `${qsindex}/${data.number_questions}`;//
 
@@ -82,13 +85,14 @@ async function good() {
                 result_interface.style.opacity = "1";
                 correctAnsewrs.innerHTML = `Questions Answered: ${correct_answers} Correct`;
                 rate.innerHTML = `Success rate : ${((correct_answers / data.number_questions) * 100).toFixed(2)}%`;//
+                resutl_time.innerHTML = `Total time : ${totalsec}sec`;
 
             }, 2000);
         }
     }
 
     function timer() {
-        var sec = 30;
+        sec = 30;
         timer = setInterval(function () {
             document.getElementById('timer').innerHTML = '00:' + sec;
             sec--;
@@ -148,8 +152,8 @@ async function good() {
                             l.style.background = "green";
                             score += Number(data.questions[i].question_points);//
                             score_html.innerHTML = score;
-                            // score_html.innerHTML = Number(score_html.innerHTML) + Number(data[0].questions[i].question_points);
                             correct_answers++;
+                            
                         }
                         else {
                             l.style.background = "red";
@@ -172,6 +176,8 @@ async function good() {
                 bar.style.width = `${progress}%`;
                 bar.style.transition = "all .25s ease"
                 result()
+                totalsec += 30 - sec;
+                
                 setTimeout(() => {
                     clearInterval(timer);
                     i++;
@@ -236,6 +242,7 @@ async function good() {
                         }
                     })
                 }
+                totalsec += 30 - sec;
                 result()
                 bar.style.width = `${progress}%`;
                 bar.style.transition = "all .25s ease"
@@ -311,6 +318,7 @@ async function good() {
                 response_input.style.backgroundColor = "red";
                 explain();
             }
+            totalsec += 30 - sec;
             result()
             bar.style.width = `${progress}%`;
             bar.style.transition = "all .25s ease"

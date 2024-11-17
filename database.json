@@ -1,80 +1,80 @@
 {
   "quizes": [
     {
-      "id": "783f",
-      "quiz_title": "Quiz prototype",
-      "description": "prototype",
+      "id": "456g",
+      "quiz_title": "Geography Basics",
+      "description": "A simple quiz to test your knowledge of geography.",
       "number_questions": "3",
-      "category": "test",
+      "category": "geography",
       "difficulty": "easy",
       "estimated_time": "5",
       "status": "actif",
       "questions": [
         {
           "quiz_type": "qcm",
-          "question_text": "this is rom",
+          "question_text": "Which city is known as the Big Apple?",
           "question_points": "20",
-          "a": "paris",
-          "b": "rome",
-          "c": "italy",
-          "d": "maroc",
-          "correct": "rome",
-          "explanation": "its just rome"
+          "a": "Los Angeles",
+          "b": "New York",
+          "c": "Chicago",
+          "d": "Miami",
+          "correct": "New York",
+          "explanation": "New York City is commonly referred to as the Big Apple."
         },
         {
           "quiz_type": "yes-no",
-          "question_text": "this is just true",
+          "question_text": "Is Mount Everest the tallest mountain in the world?",
           "question_points": "20",
-          "a": "true",
-          "b": "false",
-          "correct": "true",
-          "explanation": "just choose true"
+          "a": "yes",
+          "b": "no",
+          "correct": "yes",
+          "explanation": "Yes, Mount Everest is the tallest mountain in the world."
         },
         {
           "quiz_type": "input",
-          "question_text": "type hi",
+          "question_text": "Type the capital of France.",
           "question_points": "80",
-          "correct": "hi",
-          "explanation": "hi:)"
+          "correct": "Paris",
+          "explanation": "The capital of France is Paris."
         }
       ]
     },
     {
-      "id": "d0eb",
-      "quiz_title": "another test",
-      "description": "testing",
+      "id": "789h",
+      "quiz_title": "JavaScript Fundamentals",
+      "description": "Test your knowledge of basic JavaScript concepts.",
       "number_questions": "3",
-      "category": "test",
-      "difficulty": "hard",
-      "estimated_time": "10",
+      "category": "programming",
+      "difficulty": "easy",
+      "estimated_time": "5",
       "status": "actif",
       "questions": [
         {
           "quiz_type": "qcm",
-          "question_text": "whats is this",
-          "question_points": "100",
-          "a": "this ",
-          "b": "is ",
-          "c": "what ",
-          "d": "none",
-          "correct": "this",
-          "explanation": "this is this"
+          "question_text": "What is the correct syntax to create a function in JavaScript?",
+          "question_points": "20",
+          "a": "function myFunction()",
+          "b": "function:myFunction()",
+          "c": "myFunction = function()",
+          "d": "myfunctions = function",
+          "correct": "function myFunction()",
+          "explanation": "The correct syntax to declare a function is 'function myFunction()'."
         },
         {
           "quiz_type": "yes-no",
-          "question_text": "whatever but true",
-          "question_points": "60",
-          "a": "true",
-          "b": "false",
-          "correct": "true",
-          "explanation": "just true ngl"
+          "question_text": "Is 'null' a type of object in JavaScript?",
+          "question_points": "20",
+          "a": "yes",
+          "b": "no",
+          "correct": "yes",
+          "explanation": "'null' is indeed considered an object type in JavaScript."
         },
         {
           "quiz_type": "input",
-          "question_text": "type smthg",
+          "question_text": "Type the keyword used to declare a variable in JavaScript.",
           "question_points": "80",
-          "correct": "smthg",
-          "explanation": "whell"
+          "correct": "var",
+          "explanation": "The keyword 'var' is used to declare a variable in JavaScript."
         }
       ]
     }

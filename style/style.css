@@ -30,6 +30,7 @@ body {
 }
 
 .quiz {
+    padding: 25px;
     margin-top: 30px;
     font-family: "Itim";
     display: flex;
@@ -175,7 +176,8 @@ body {
 
 
 .quiz-question {
-    width: 600px;
+    padding: 10px;
+    width: fit-content;
     height: 200px;
     background-color: #FCCF31;
     margin: auto;
